@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="bd">
+    {{ form_start(registrationForm) }}
+
+    {{ form_row(registrationForm.pseudo) }}
+
+    {{ form_row(registrationForm.email) }}
+
+    {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+        <p>Langage</p>
+    <div class="lg">
+        {{ form_row(registrationForm.lang1) }}{{ form_row(registrationForm.lang2) }}{{ form_row(registrationForm.lang3) }}{{ form_row(registrationForm.lang4) }}
+    </div>
+        <button type="submit" class="btn">S'enregistrer</button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

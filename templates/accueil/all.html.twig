@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+
+    <div class="line2">
+
+        <div class="nav2">
+            <h1>Filtrage par : </h1>
+                <a href="{{ '/filter/lang1' }}"      ><h1>Angular</h1></a>
+                <a href="{{ '/filter/lang2' }}"      ><h1>Svelt</h1></a>
+                <a href="{{ '/filter/lang3' }}"      ><h1>Spring</h1></a>
+                <a href="{{ '/filter/lang4' }}"      ><h1>VusJS</h1></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if( app.user != null) %}
+        {% for devLoveur in  listeDevLoveur %}
+
+            {% if (app.user.pseudo != devLoveur.pseudo)  %}
+                <div class="usr">
+                    <label class="psd">{{ devLoveur.pseudo }} ({{ devLoveur.lstAmis | length }})</label>
+
+                    {% if(devLoveur.lang1 == 1) %}
+                        <img class="lan" src="{{asset('logo/angular.png')  }}" width="50">
+                    {% endif %}
+                    {% if(devLoveur.lang2 == 1) %}
+                        <img class="lan" src="{{asset('logo/svelt.png')  }}" width="50">
+                    {% endif %}
+                    {% if(devLoveur.lang3 == 1) %}
+                        <img class="lan" src="{{asset('logo/spring.png')  }}" width="50">
+                    {% endif %}
+                    {% if(devLoveur.lang4 == 1) %}
+                        <img class="lan" src="{{asset('logo/vujs.png')  }}" width="50">
+                    {% endif %}
+                    <div class="opt">
+                        <a href="{{ path('accueil_setFriend', {'id': devLoveur.id}) }}">
+
+                            {% if (app.user.isMyFriend(devLoveur) == true) %}
+                                <img src="{{asset('logo/friend.jpg')  }}" width="50" ></a>
+                            {% else %}
+                                <img src="{{asset('logo/unfriend.jpg')  }}" width="50" ></a>
+                            {% endif %}
+
+                        <a href=""><img src="{{asset('logo/courrier.png')  }}" width="50"></a>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% else %}
+            oups
+        {% endfor %}
+    {% else %}
+        <p>Il y a {{ listeDevLoveur|length }} DevLoveur(s) en base de données</p>
+    {% endif %}
+{% endblock %}
